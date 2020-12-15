@@ -1,11 +1,5 @@
 FROM vcxpz/baseimage-alpine
 
-# set version label
-ARG BUILD_DATE
-ARG VERSION
-LABEL build_version="Fork of Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
-LABEL maintainer="hydaz"
-
 # install packages
 RUN \
  echo "**** install build packages ****" && \
