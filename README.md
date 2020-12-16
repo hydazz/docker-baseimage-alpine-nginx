@@ -11,6 +11,6 @@ A custom base image built with [Alpine linux][appurl], [Nginx][nginxurl] and [s6
 | :---: | --- |
 | Alpine | Edge |
 | Nginx | 1.18.0 |
-| PHP | 7.4 (:latest tag) |
-| PHP | 8.0 (:php8 tag) |
+| PHP | 7.4 |
 | s6-overlay | 2.1.0.2 |
+*See *package_versions.txt* for more detail
