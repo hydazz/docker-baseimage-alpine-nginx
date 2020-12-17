@@ -2,7 +2,7 @@ FROM vcxpz/baseimage-alpine
 
 # install packages
 RUN \
- echo "**** install build packages ****" && \
+ echo "**** install packages ****" && \
  apk add --no-cache \
 	apache2-utils \
 	git \
