@@ -2,7 +2,7 @@
 [s6overlay]: https://github.com/just-containers/s6-overlay
 [nginxurl]: http://nginx.org/en/
 
-## Alpine Edge split of [docker-baseimage-alpine-nginx](https://github.com/linuxserver/docker-baseimage-alpine-nginx/)
+## Alpine Edge fork of [docker-baseimage-alpine-nginx](https://github.com/linuxserver/docker-baseimage-alpine-nginx/)
 
 A custom base image built with [Alpine Linux][appurl], [Nginx][nginxurl] and [s6-overlay][s6overlay]
 
