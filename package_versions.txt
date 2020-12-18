@@ -118,6 +118,7 @@ php7-fileinfo-7.4.13-r1
 php7-fpm-7.4.13-r1
 php7-ftp-7.4.13-r1
 php7-gd-7.4.13-r1
+php7-gmp-7.4.13-r1
 php7-iconv-7.4.13-r1
 php7-imap-7.4.13-r1
 php7-intl-7.4.13-r1
@@ -140,8 +141,12 @@ php7-pgsql-7.4.13-r1
 php7-phar-7.4.13-r1
 php7-posix-7.4.13-r1
 php7-session-7.4.13-r1
+php7-simplexml-7.4.13-r1
 php7-sodium-7.4.13-r1
+php7-xml-7.4.13-r1
 php7-xmlreader-7.4.13-r1
+php7-xmlrpc-7.4.13-r1
+php7-xmlwriter-7.4.13-r1
 php7-zip-7.4.13-r1
 pixman-0.40.0-r2
 pkgconf-1.7.3-r0
