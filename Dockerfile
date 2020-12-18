@@ -9,6 +9,7 @@ RUN \
      git \
      imagemagick \
      libressl3.1-libssl \
+     libxml2 \
      logrotate \
      memcached \
      nano \
@@ -23,9 +24,10 @@ RUN \
      php7-dom \
      php7-exif \
      php7-fileinfo \
-     php7-ftp \
      php7-fpm \
+     php7-ftp \
      php7-gd \
+     php7-gmp \
      php7-iconv \
      php7-imagick \
      php7-imap \
@@ -42,8 +44,12 @@ RUN \
      php7-pgsql \
      php7-phar \
      php7-posix \
+     php7-simplexml \
      php7-sodium \
+     php7-xml \
      php7-xmlreader \
+     php7-xmlrpc \
+     php7-xmlwriter \
      php7-zip && \
  echo "**** configure nginx ****" && \
  echo 'fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;' >> \
