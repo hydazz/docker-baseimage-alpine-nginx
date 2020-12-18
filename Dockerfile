@@ -14,6 +14,7 @@ RUN \
      nano \
      nginx \
      openssl \
+     php7 \
      php7-apcu \
      php7-bcmath \
      php7-bz2 \
@@ -23,6 +24,7 @@ RUN \
      php7-exif \
      php7-fileinfo \
      php7-ftp \
+     php7-fpm \
      php7-gd \
      php7-iconv \
      php7-imagick \
