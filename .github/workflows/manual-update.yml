@@ -22,9 +22,9 @@ jobs:
       env:
         # Changes these
         GIT_USER: hydazz
-        GIT_REPO: docker-baseimage-alpine
+        GIT_REPO: docker-baseimage-alpine-nginx
         GIT_BRANCH: main
-        DOCKERHUB_IMAGE: vcxpz/baseimage-alpine
+        DOCKERHUB_IMAGE: vcxpz/baseimage-alpine-nginx
         DOCKERIMAGE_TAG: latest
       run: |
         echo "::set-output name=GIT_USER::$GIT_USER"
