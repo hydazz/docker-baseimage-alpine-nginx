@@ -4,11 +4,11 @@ FROM vcxpz/baseimage-alpine
 ARG BUILD_DATE
 ARG VERSION
 LABEL build_version="Fork of Linuxserver.io version:- ${VERSION} Build date:- ${BUILD_DATE}"
-LABEL maintainer="hydaz"
+LABEL maintainer="Alex Hyde"
 
 # install packages
 RUN \
- echo "**** install packages ****" && \
+ echo "**** install runtime packages ****" && \
  apk add --no-cache \
      apache2-utils \
      curl \
