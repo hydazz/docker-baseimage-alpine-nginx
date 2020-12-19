@@ -1,19 +1,12 @@
-name: Docker Update CI
+name: Cron Update CI
 
 on:
-  schedule:
-    - cron:  '5 0 * * 0'
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '**/README.md'
-      - '**/package_versions.txt'
-      - '.github/**'
+  schedule:
+    - cron: '5 0 * * 0'
 
 jobs:
-  build:
+  amd64:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -40,53 +33,66 @@ jobs:
       run: |
         echo $DOCKER_PASSWORD | docker login -u vcxpz --password-stdin
 
-    - name: Build the Docker image
+    - name: Github Login
+      env:
+        GIT_USER: ${{ steps.variables.outputs.GIT_USER }}
+      run: |
+        git config --global user.email "alexanderhyde@icloud.com"
+        git config --global user.name "$GIT_USER"
+
+    - name: Build The Docker Image
       env:
         VERSION: ${{ steps.variables.outputs.VERSION }}
         DOCKERHUB_IMAGE: ${{ steps.variables.outputs.DOCKERHUB_IMAGE }}
+        OVERLAY_VERSION: ${{ steps.variables.outputs.OVERLAY_VERSION }}
       run: |
         docker build --no-cache --pull . --file Dockerfile --build-arg VERSION="$VERSION" --build-arg BUILD_DATE="$(date +%Y-%m-%d)" --tag "$DOCKERHUB_IMAGE":cibuild
 
-    - name: Get The Goods From The Image
+    - name: Get New Packages From Image
+      id: packages
       env:
-        GIT_USER: ${{ steps.variables.outputs.GIT_USER }}
-        GIT_REPO: ${{ steps.variables.outputs.GIT_REPO }}
         GIT_BRANCH: ${{ steps.variables.outputs.GIT_BRANCH }}
         DOCKERHUB_IMAGE: ${{ steps.variables.outputs.DOCKERHUB_IMAGE }}
       run: |
-        mkdir /tmp/workdir
-        docker run --rm --entrypoint '/bin/sh' -v /tmp/workdir:/tmp "$DOCKERHUB_IMAGE":cibuild -c '\
-            apk info -v | sort >/tmp/package_versions.txt'
-        git clone -b $GIT_BRANCH https://github.com/"$GIT_USER"/"$GIT_REPO".git /tmp/workdir/"$GIT_REPO"
-        cd /tmp/workdir/"$GIT_REPO"
+        docker run --rm --entrypoint '/bin/sh' -v "$PWD":/tmp "$DOCKERHUB_IMAGE":cibuild -c '\
+          apk info -v | sort >/tmp/package_versions.new'
         if [ ! -f package_versions.txt ]; then \
           touch package_versions.txt; \
         fi
-
-    - name: Set MD5 Variables
-      id: md5
-      run: |
         echo "::set-output name=PACKAGES_OLD_MD5::$(md5sum package_versions.txt | awk '{ print $1 }')"
-        echo "::set-output name=PACKAGES_NEW_MD5::$(md5sum /tmp/workdir/package_versions.txt | awk '{ print $1 }')"
+        echo "::set-output name=PACKAGES_NEW_MD5::$(md5sum package_versions.new | awk '{ print $1 }')"
+
+    - name: Stage package_versions.txt Changes
+      if: steps.packages.outputs.PACKAGES_OLD_MD5 != steps.packages.outputs.PACKAGES_NEW_MD5
+      id: push_packageversions
+      env:
+        GIT_REPO: ${{ steps.variables.outputs.GIT_REPO }}
+      run: |
+        rm package_versions.txt
+        mv package_versions.new package_versions.txt
+        git add package_versions.txt
+        git commit -m 'Bot Updating Package Versions' package_versions.txt
+        echo "::set-output name=COMMIT::1"
 
     - name: Push Changes To Github
-      if: steps.md5.outputs.PACKAGES_OLD_MD5 != steps.md5.outputs.PACKAGES_NEW_MD5
+      if: steps.push_packageversions.outputs.COMMIT == 1
       env:
         GIT_USER: ${{ steps.variables.outputs.GIT_USER }}
         GIT_REPO: ${{ steps.variables.outputs.GIT_REPO }}
         GIT_BRANCH: ${{ steps.variables.outputs.GIT_BRANCH }}
         GIT_KEY: ${{ secrets.GIT_KEY }}
       run: |
-        cd /tmp/workdir/"$GIT_REPO"/
-        rm package_versions.txt
-        mv /tmp/workdir/package_versions.txt package_versions.txt
-        git config --global user.email "alexanderhyde@icloud.com"
-        git config --global user.name "$GIT_USER"
-        git add package_versions.txt
-        git commit -m 'Bot Updating Package Versions'
         git push https://"$GIT_USER":"$GIT_KEY"@github.com/"$GIT_USER"/"$GIT_REPO".git $GIT_BRANCH
 
+    - name: Push Changes To Docker Hub
+      uses: peter-evans/dockerhub-description@v2
+      with:
+        username: vcxpz
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        repository: ${{ steps.variables.outputs.DOCKERHUB_IMAGE }}
+
     - name: Tag And Push Docker Image
+      if: steps.push_packageversions.outputs.COMMIT == 1
       env:
         DOCKERHUB_IMAGE: ${{ steps.variables.outputs.DOCKERHUB_IMAGE }}
         DOCKERIMAGE_TAG: ${{ steps.variables.outputs.DOCKERIMAGE_TAG }}
