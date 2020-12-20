@@ -12,7 +12,7 @@ mkdir -p \
   cp /defaults/nginx.conf /config/nginx/nginx.conf
 [[ ! -f /config/nginx/site-confs/default ]] &&
   cp /defaults/default /config/nginx/site-confs/default
-if ! ls -1qA $1 | grep -q .; then
+if ! ls -1qA /config/www/ | grep -q .; then
   cp /defaults/index.html /config/www/index.html
 fi
 
