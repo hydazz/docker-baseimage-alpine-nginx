@@ -8,7 +8,7 @@ LABEL maintainer="Alex Hyde"
 
 # install packages
 RUN \
- echo "**** install build packages ****" && \
+ echo "**** install runtime packages ****" && \
  apk add --no-cache \
 	apache2-utils \
 	git \
