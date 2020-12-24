@@ -11,6 +11,7 @@ RUN \
    echo "**** install runtime packages ****" && \
    apk add --no-cache \
       apache2-utils \
+      curl \
       git \
       libressl3.1-libssl \
       logrotate \
@@ -20,9 +21,11 @@ RUN \
       php7 \
       php7-fileinfo \
       php7-fpm \
+      php7-imagick \
       php7-json \
       php7-mbstring \
       php7-openssl \
+      php7-pear \
       php7-session \
       php7-simplexml \
       php7-xml \
