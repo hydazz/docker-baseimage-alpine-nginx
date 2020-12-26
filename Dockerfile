@@ -21,7 +21,6 @@ RUN \
       php7 \
       php7-fileinfo \
       php7-fpm \
-      php7-imagick \
       php7-json \
       php7-mbstring \
       php7-openssl \
