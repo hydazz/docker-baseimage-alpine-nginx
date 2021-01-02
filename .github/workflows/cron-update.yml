@@ -18,7 +18,6 @@ jobs:
         run: |
           echo "::set-output name=DOCKERHUB_IMAGE::$DOCKERHUB_IMAGE"
           echo "::set-output name=DOCKERIMAGE_TAG::$DOCKERIMAGE_TAG"
-          echo "::set-output name=VERSION::$(curl -sX GET "https://api.github.com/repos/linuxserver/docker-baseimage-alpine-nginx/releases/latest" | jq -r .tag_name)"
 
       - name: Docker Login
         env:
@@ -35,10 +34,9 @@ jobs:
 
       - name: Build The Docker Image
         env:
-          VERSION: ${{ steps.variables.outputs.VERSION }}
           DOCKERHUB_IMAGE: ${{ steps.variables.outputs.DOCKERHUB_IMAGE }}
         run: |
-          docker build --no-cache --pull . --file Dockerfile --build-arg VERSION="$VERSION" --build-arg BUILD_DATE="$(date +%Y-%m-%d)" --tag "$DOCKERHUB_IMAGE":cibuild
+          docker build --no-cache --pull . --file Dockerfile --tag "$DOCKERHUB_IMAGE":cibuild
 
       - name: Get New Package Versions From Image
         id: packages
