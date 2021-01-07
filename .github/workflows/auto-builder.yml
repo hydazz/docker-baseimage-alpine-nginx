@@ -5,6 +5,7 @@ on:
     - cron: "5 0 * * 0" # L2 image
 
 jobs:
+  workflow_dispatch:
   latest:
     runs-on: ubuntu-latest
     steps:
