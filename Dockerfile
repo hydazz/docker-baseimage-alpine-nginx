@@ -1,6 +1,6 @@
 FROM vcxpz/baseimage-alpine
 
-RUN \
+RUN set -x && \
    echo "**** install runtime packages ****" && \
    apk add --no-cache \
       apache2-utils \
