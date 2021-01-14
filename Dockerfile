@@ -1,4 +1,4 @@
-FROM vcxpz/baseimage-alpine
+FROM vcxpz/baseimage-alpine:latest
 
 RUN set -xe && \
    echo "**** install runtime packages ****" && \
