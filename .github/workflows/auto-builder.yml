@@ -40,7 +40,7 @@ jobs:
           docker build \
             --platform=linux/amd64,linux/arm64,linux/arm/v7 \
             --output "type=image,push=true" \
-            --build-arg BUILD_DATE="$(date +%Y-%m-%d)"
+            --build-arg BUILD_DATE="$(date +%Y-%m-%d)" \
             --tag vcxpz/baseimage-alpine-nginx:latest \
             --file Dockerfile .
 
