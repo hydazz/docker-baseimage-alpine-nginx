@@ -8,7 +8,7 @@ on:
     - cron: "5 0 * * 0"
 
 jobs:
-  edge:
+  alpine-edge:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
