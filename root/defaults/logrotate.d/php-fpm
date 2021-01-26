@@ -1,14 +1,13 @@
-/config/log/nginx/*.log {
+/config/log/php/*.log {
      weekly
-     rotate 14
-     compress
-     delaycompress
+     rotate 4
      nodateext
      notifempty
      missingok
+     nocompress
      sharedscripts
      postrotate
-          s6-svc -h /var/run/s6/services/nginx
+          s6-svc -t /var/run/s6/services/php-fpm
      endscript
      su abc abc
 }
