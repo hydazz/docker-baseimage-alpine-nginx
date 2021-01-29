@@ -6,12 +6,6 @@ Fork of [linuxserver/docker-baseimage-alpine-nginx](https://github.com/linuxserv
 
 A custom base image built with [Alpine Linux][appurl], [Nginx][nginxurl] and [s6 overlay][s6overlay]
 
-## Version Information
-
-![alpine](https://img.shields.io/badge/alpine-edge-0D597F?style=for-the-badge&logo=alpine-linux) ![nginx](https://img.shields.io/badge/nginx-1.18.0-269539?style=for-the-badge&logo=nginx) ![php](https://img.shields.io/badge/php-7.4.14-777BB4?style=for-the-badge&logo=php)
-
-See [package_versions.txt](package_versions.txt) for a full list of the packages and package versions used in this image
-
 **Read the official [README.md](https://github.com/linuxserver/docker-baseimage-alpine-nginx/) for more information**
 
 [appurl]: https://alpinelinux.org
