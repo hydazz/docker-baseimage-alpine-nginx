@@ -15,5 +15,7 @@ See [package_versions.txt](package_versions.txt) for a full list of the packages
 **Read the official [README.md](https://github.com/linuxserver/docker-baseimage-alpine-nginx/) for more information**
 
 [appurl]: https://alpinelinux.org
+
 [s6overlay]: https://github.com/just-containers/s6-overlay
+
 [nginxurl]: http://nginx.org/en/
