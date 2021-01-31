@@ -1,7 +1,5 @@
 #!/usr/bin/with-contenv bash
 
-umask ${UMASK_SET:-022}
-
 if pgrep -f "[n]ginx:" >/dev/null; then
 	echo "Zombie nginx processes detected, sending SIGTERM"
 	pkill -ef [n]ginx:

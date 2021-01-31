@@ -1,5 +1,3 @@
 #!/usr/bin/with-contenv bash
 
-umask ${UMASK_SET:-022}
-
 exec /usr/sbin/php-fpm7 -F
