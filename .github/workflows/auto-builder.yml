@@ -7,13 +7,13 @@ on:
   repository_dispatch:
 
 jobs:
-  alpine-latest:
+  alpine-php7:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: main
+          ref: php7
           fetch-depth: 0
 
       - name: Set up QEMU
@@ -41,6 +41,7 @@ jobs:
             --output "type=docker" \
             --build-arg BUILD_DATE="$(date +%Y-%m-%d)" \
             --tag vcxpz/ci-build:ci-build \
+            --build-arg TAG=php7 \
             --file Dockerfile .
 
       - name: Build And Push The Docker Image
@@ -48,8 +49,9 @@ jobs:
           docker buildx build \
             --platform=linux/amd64,linux/arm64,linux/arm/v7 \
             --output "type=image,push=true" \
+            --build-arg TAG=php7 \
             --build-arg BUILD_DATE="$(date +%Y-%m-%d)" \
-            --tag vcxpz/baseimage-alpine-nginx:latest \
+            --tag vcxpz/baseimage-alpine-nginx:php7 \
             --file Dockerfile .
 
       - name: Get New Package Versions From Image
@@ -62,13 +64,6 @@ jobs:
           git add -A
           git commit -m "Bot Updating Files" || true
           git push || true
-
-      - name: Sync README.md With Docker Hub
-        uses: peter-evans/dockerhub-description@v2
-        with:
-          username: vcxpz
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: vcxpz/baseimage-alpine-nginx
 
       - name: Trigger Images
         env:

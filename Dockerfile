@@ -11,20 +11,18 @@ RUN set -xe && \
 		nano \
 		nginx \
 		openssl \
-		php8 \
-		php8-fileinfo \
-		php8-fpm \
-		php8-json \
-		php8-mbstring \
-		php8-openssl \
-		php8-pear \
-		php8-session \
-		php8-simplexml \
-		php8-xml \
-		php8-xmlwriter \
-		php8-zlib && \
-	echo "**** configure php ****" && \
-	ln -s /usr/bin/php8 /usr/bin/php && \
+		php7 \
+		php7-fileinfo \
+		php7-fpm \
+		php7-json \
+		php7-mbstring \
+		php7-openssl \
+		php7-pear \
+		php7-session \
+		php7-simplexml \
+		php7-xml \
+		php7-xmlwriter \
+		php7-zlib && \
 	echo "**** configure nginx ****" && \
 	echo 'fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;' >> \
 		/etc/nginx/fastcgi_params && \
