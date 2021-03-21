@@ -6,7 +6,7 @@ RUN set -xe && \
 		apache2-utils \
 		curl \
 		git \
-		libressl3.1-libssl \
+		libressl3.2-libssl \
 		logrotate \
 		nano \
 		nginx \
