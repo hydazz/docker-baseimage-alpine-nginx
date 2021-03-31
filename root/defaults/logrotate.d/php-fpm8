@@ -7,7 +7,7 @@
      nocompress
      sharedscripts
      postrotate
-          s6-svc -t /var/run/s6/services/php-fpm
+          s6-svc -t /var/run/s6/services/php-fpm8
      endscript
      su abc abc
 }
