@@ -36,6 +36,11 @@ sed -i "s#group = nobody.*#group = abc#g" /etc/php8/php-fpm.d/www.conf
 # copy user www2.conf to image
 cp /config/php/www2.conf /etc/php8/php-fpm.d/www2.conf
 
+# backwards compatibility for alpine >=3.14
+if [ ! -e /etc/nginx/conf.d ]; then
+	ln -s /etc/nginx/http.d /etc/nginx/conf.d
+fi
+
 # permissions
 chown -R abc:abc \
 	/config \
